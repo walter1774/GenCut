@@ -140,6 +140,12 @@ li{
     list-style-type: none;
 }
 
+.sequence{
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+}
+
 .motif-checked {
     color: var(--colorTextLink); /* Gris doux */
     opacity: 0.8;

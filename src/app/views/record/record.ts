@@ -7,6 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Dialog, DialogData } from '../../shared/components/dialog/dialog';
 import { Button } from '../../shared/components/button/button';
 import { Card } from '../../shared/components/card/card';
+import { CheckBox } from '../../shared/components/check-box/check-box.js';
+import { LocalStorageService } from '../../utils/local-storage.service.js';
+import { MatrixBackground } from '../../shared/components/matrix-background/matrix-background';
 
 interface GroupeMotif {
   motif: number[];
@@ -36,6 +39,8 @@ interface SavedResult extends ResultatDecoupe {
     DecimalPipe,
     Button,
     Card,
+    CheckBox,
+    MatrixBackground
   ],
   templateUrl: './record.html', // Assurez-vous que le HTML utilise [formGroup], formArrayName, etc.
   styleUrl: './record.scss',
@@ -53,6 +58,8 @@ export class Record implements OnInit {
     'pourcentage',
     'selection',
   ];
+
+  private localStorageService = inject(LocalStorageService);
 
   // Nouvelle propriété pour stocker le résultat sélectionné pour l'affichage détaillé
   selectedResult: SavedResult | null = null;
@@ -182,4 +189,37 @@ export class Record implements OnInit {
     if (pourcentage <= 10) return 'perte-moyenne';
     return 'perte-elevee';
   }
+
+  private getPurgeMode(): string | null {
+  return localStorage.getItem('purge'); // Retourne 'auto' ou '40'
+}
+
+   saveResultsToLocalStorage(){
+    this.localStorageService.saveOptimizationResults(this.dataSource,this.getPurgeMode())
+  }
+
+  openActionDialog(data: DialogData) {
+    return this.dialog
+      .open(Dialog, {
+        data: data,
+        width: '400px', // Taille standard pour le dialogue
+        disableClose: true, // Empêche la fermeture par clic en dehors
+      })
+      .afterClosed();
+  }
+
+  openSaveDialog(): void {
+    this.openActionDialog({
+      title: 'Confirmation', // Titre ajusté selon la demande
+      message:
+        'Êtes-vous certain de vouloir enregistrer ces données et perdre les dernières enregistrées?', // Message ajusté
+      isConfirmation: true, // Crucial pour afficher les boutons Oui/Non
+    }).subscribe((result) => {
+      if (result === true) {
+        this.saveResultsToLocalStorage(); 
+      }
+    });
+  }
+
+  toggleMotifSelection(groupe: any): void {}
 }

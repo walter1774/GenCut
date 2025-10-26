@@ -1,9 +1,13 @@
-        <div class="p-6 bg-white rounded-xl shadow-2xl font-['Inter'] min-h-screen">
+      
+      <app-matrix-background></app-matrix-background>
+      <div class="p-6 rounded-xl shadow-2xl font-['Inter'] min-h-screen relative z-10">
       
       <!-- Vue Détaillée du Résultat Sélectionné -->
       @if (selectedResult; as res) {
                         <app-button texte="Retour à l'historique" background="green" (buttonClicked)="goBack()"></app-button>
-
+<app-button texte="Enregistrer les Résultats" background="green" 
+                    (buttonClicked)="openSaveDialog()">
+                </app-button>
         <h2 >
             Détails de l'Optimisation Enregistrée
         </h2>
@@ -25,6 +29,8 @@
         <div class="space-y-6">
             @for (g of res.groupes; track g; let i = $index) {
             <div class="labelCard" [ngClass]="{'motif-checked': g.checked}">
+              <app-check-box [checked]="g.checked"
+                                        (checkedChange)="g.checked = $event; toggleMotifSelection(g)"></app-check-box>
                 <div class="border p-4 rounded-lg shadow-sm bg-white">
                     <h3 class="text-xl font-medium text-gray-800 mb-2">Séquence {{ i + 1 }}:</h3>
                     <ul class="list-disc ml-6 space-y-1 text-gray-600">

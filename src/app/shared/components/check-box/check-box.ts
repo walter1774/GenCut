@@ -22,7 +22,7 @@ export class CheckBox {
 
    // Entrée pour l'état de la checkbox
   @Input() checked: boolean = false;
-  @Input() label: string = 'Check me';
+  @Input() label: string = '';
 
   // Sortie pour notifier le parent du changement d'état
   @Output() checkedChange = new EventEmitter<boolean>();

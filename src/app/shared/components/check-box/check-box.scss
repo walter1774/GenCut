@@ -5,8 +5,10 @@
   /* Vous avez utilisé #747474 et #ffffff dans vos ombres internes */
   --dark-shadow: #a8a9ad; /* Pour les ombres externes */
   --light-shadow: #ffffff;
-  --checkbox-size: 44px; /* Augmentons la taille pour bien voir le rayon de 44px */
+  --checkbox-size: 30px; /* Augmentons la taille pour bien voir le rayon de 44px */
   display: block;
+  margin-left: 10px;
+  margin-top: -3px;
 }
 
 /* --- Le Conteneur --- */
@@ -33,12 +35,12 @@
   /* Utilisation de votre border-radius pour un look de pilule/cercle si taille = rayon*2 */
   border-radius: 10px; 
   margin-right: 10px;
-  background: var(--primaryElement1);
+  background: var(--sideNav);
   transition: all 0.2s ease-in-out;
 
   /* Style par défaut: Le carré est 'poussé' (léger relief) */
   box-shadow: 
-    inset -5px -5px 10px var(--element),
+    inset -5px -5px 10px var(--sideNav),
              5px 5px 10px var(--shadow2);
 }
 
@@ -59,7 +61,7 @@
 /* Ajout d'un point ou d'une icône pour confirmer l'état "coché" */
 .neumorphic-container input:checked ~ .checkbox-visual::after {
   content: '✓'; 
-  color: var(--shadow1); /* Vert pour le 'check' */
+  color: var(--shadow2); /* Vert pour le 'check' */
   font-size: calc(var(--checkbox-size) / 2); /* Taille adaptée à la taille de la case */
   position: absolute;
   top: 50%;

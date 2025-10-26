@@ -5,12 +5,11 @@ import { Footer } from './shared/components/footer/footer';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { ThemeMode, ThemeService } from './shared/utils/theme-service';
+import { ThemeService, ThemeMode } from './utils/theme-service';
 
 @Component({
   selector: 'app-root',

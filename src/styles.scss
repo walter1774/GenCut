@@ -21,17 +21,20 @@ html {
     )
   );
   /* overrides pour le thème clair */
-  --body:#fafafa;
-  --header:#d1ab8c;
-  --sideNav:#e0a26e;
-  --element:#5e5854;
+  // ----------------------
+  --body:#f5ebe0;
+  --header:#d5bdaf;
+  --sideNav:#e3d5ca;
+  --element:#d6ccc2;
+  --colorTextLink: #edede9;
+  // ---------------------
   --primaryElement1:#9e918a;
   --buttonBase:#2966e9;
   --colorText:#000000;
-  --colorTextLink: #6e6767;
   --shadow1:#32325D;
   --shadow2:#405161;
   --shadow3:#0A2540;
+  // -----------------
   --warning:#f44336;
   --alert:rgb(216, 48, 48);
   --success: rgb(31, 145, 31);
@@ -43,7 +46,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: var(--mat-sys-surface);
+  background: var(--body);
    color: var(--mat-sys-on-surface);
 
   //Custom scroll bar
@@ -65,18 +68,22 @@ body.dark-theme {
   color-scheme: dark;
   /* overrides pour le thème sombre */
  --menu-text-color: var(--mat-sys-on-surface); // couleur par défaut Material
-  --body:#5c5c5c;
-  --header:#677a8a;
-  --sideNav:#828f93;
-  --element:#5e5854;
-  --primaryElement1:#9393b3;
+ 
+ // ----------------------
+  --body:#01161e;
+  --header:#598392;
+  --sideNav:#aec3b0;
+  --element:#aec3b0;
+  --colorTextLink: #aec3b0;
+  // ----------------------
+  --primaryElement1:#415a77;
   --buttonBase:#2966e9;
   --colorText:#000000;
-  --colorTextLink: #d3b8b8;
   --shadow1:#FAFAC1;
   --shadow2:#0A2540;
   --shadow3:#0A2540;
   --warning:#f1675d;
+  // ----------------------
   --alert:rgb(216, 48, 48);
   --success: rgb(33, 114, 33);
   --gray: #828f93;

@@ -21,10 +21,7 @@
                                 La longueur doit être un nombre de 2 à 4 chiffres.
                             </app-error>
                         </app-input-number>
-<app-check-box [label]="'J\'accepte les termes et conditions'"
-  [(checked)]="isAccepted"
-  (checkedChange)="onCheckboxChange($event)"></app-check-box>
-  <p>État actuel: {{ isAccepted ? 'Accepté' : 'Non accepté' }}</p>
+
 
 
 
@@ -142,8 +139,10 @@
                             <div class="labelCard" [ngClass]="{'motif-checked': g.checked}">
                                 <div class="sequence">
                                     <label [ngClass]="{'motif-checked': g.checked}">Séquence {{i+1}}: </label>
-                                    <mat-checkbox class="example-margin" [checked]="g.checked"
-                                        (change)="g.checked = $event.checked; toggleMotifSelection(g)"></mat-checkbox>
+                                    <!-- <mat-checkbox class="example-margin" [checked]="g.checked"
+                                        (change)="g.checked = $event.checked; toggleMotifSelection(g)"></mat-checkbox> -->
+                                    <app-check-box [checked]="g.checked"
+                                        (checkedChange)="g.checked = $event; toggleMotifSelection(g)"></app-check-box>
                                 </div>
                                 <li> Nombre de planches : {{ g.count }}</li>
                                 <li> {{ formaterMotif(g.motif) }}</li>
@@ -153,10 +152,14 @@
                                 }@else{
                                 <!-- Mode Automatique sélectionné -->
                                 <li> purge recommandées : {{ (res.longueurPalette - getLongueurMotif(g.motif)) / 2 }} mm
+                                    
                                 </li>
 
                                 }
                                 <li> perte par planche : {{ res.longueurPalette - getLongueurMotif(g.motif) }}</li>
+                                @if( (res.longueurPalette - getLongueurMotif(g.motif)) / 2  <=50){
+                                        <h2>⚠️ vérifiez la longueur de votre palette pour adaptez la purge!</h2>
+                                    }
                             </div>
                         </div>
                     </ul>

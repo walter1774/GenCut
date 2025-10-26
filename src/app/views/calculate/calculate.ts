@@ -20,7 +20,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CheckBox } from '../../shared/components/check-box/check-box.js';
+import { CheckBox } from '../../shared/components/check-box/check-box';
+import { LocalStorageService } from '../../utils/local-storage.service.js';
 
 @Component({
   selector: 'app-calculate',
@@ -45,17 +46,7 @@ import { CheckBox } from '../../shared/components/check-box/check-box.js';
 export class Calculate {
   tableData: any[] = []; // Contient le résumé des résultats
   displayedColumns: string[] = ['longueur', 'pr', 'quantite'];
-
   perteAuto!: number;
-  private dialog = inject(MatDialog);
-
-  private fb = inject(FormBuilder);
-
-  //? ****************** Propriétés de l'application *********************
-  titleCard = 'Entrez vos données, longueurs des morceaux et des palettes';
-  buttonText = 'Ajouter un morceau';
-  buttonTextPalette = 'Ajouter une palette';
-  toggleBoolean: boolean = false;
   nombreTotalPalettes?: number;
   meilleurePerteTotale: number | null = null;
   resultats: {
@@ -64,6 +55,17 @@ export class Calculate {
     pourcentage: number;
     groupes: { motif: number[]; count: number; checked: boolean }[];
   }[] = [];
+
+  //? *******************************************************************
+  private dialog = inject(MatDialog);
+  private localStorageService = inject(LocalStorageService);
+  private fb = inject(FormBuilder);
+
+  //? ****************** Propriétés de l'application *********************
+  titleCard = 'Entrez vos données, longueurs des morceaux et des palettes';
+  buttonText = 'Ajouter un morceau';
+  buttonTextPalette = 'Ajouter une palette';
+  toggleBoolean: boolean = false;
   isAccepted=false;
 
   //? Règle de validation pour le pattern (1 à 4 chiffres)
@@ -139,29 +141,8 @@ export class Calculate {
   }
 
   //? ****************** Gestion des Données et Validation *********************
-
-  saveResultsToLocalStorage() {
-    if (this.resultats.length === 0) {
-      console.warn(
-        "Aucun résultat à enregistrer. Veuillez d'abord effectuer un calcul."
-      );
-      return;
-    }
-    try {
-      //? Sauvegarde du tableau complet des résultats
-      const resultsJson = JSON.stringify(this.resultats);
-      if (localStorage.getItem('decoupeOptimisationResults')) {
-        localStorage.removeItem('decoupeOptimisationResults');
-        localStorage.removeItem('purge');
-      }
-      localStorage.setItem('decoupeOptimisationResults', resultsJson);
-      const purgeChoisie = this.purgeControl.value;
-      if (purgeChoisie == 'auto') {
-        localStorage.setItem('purge', 'auto');
-      } else {
-        localStorage.setItem('purge', '40');
-      }
-    } catch (e) {}
+  saveResultsToLocalStorage(){
+    this.localStorageService.saveOptimizationResults(this.resultats,this.purgeControl.value)
   }
 
   onSubmit() {
@@ -354,7 +335,7 @@ export class Calculate {
       isConfirmation: true, // Crucial pour afficher les boutons Oui/Non
     }).subscribe((result) => {
       if (result === true) {
-        this.resetForm(); // Appelle la logique de reset si confirmé
+        this.resetForm(); 
       }
     });
   }
@@ -367,7 +348,7 @@ export class Calculate {
       isConfirmation: true, // Crucial pour afficher les boutons Oui/Non
     }).subscribe((result) => {
       if (result === true) {
-        this.saveResultsToLocalStorage(); // Appelle la logique de reset si confirmé
+        this.saveResultsToLocalStorage(); 
       }
     });
   }

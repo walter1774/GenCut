@@ -29,7 +29,7 @@
         color: var(--deepblack);   
   
         &::placeholder {
-          color: #b6b6b6;
+          color: var(--primaryElement1);
         }
       }
     }

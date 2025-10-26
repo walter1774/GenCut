@@ -1,3 +1,16 @@
+    
+    :host {
+  display: block;
+  position: relative;
+  min-height: 100vh;
+}
+
+.p-6 {
+  background-color: rgba(0, 0, 0, 0.2); // Légère transparence pour voir Matrix
+  backdrop-filter: blur(3px); // Effet de flou optionnel
+}
+
+
     .content{
     margin-top: 2%;
     //  margin-right: 10%;
