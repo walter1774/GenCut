@@ -1,0 +1,55 @@
+:host {
+    width: 100%;
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+  
+      label {
+        font-size: 10px;
+        letter-spacing: 0.15rem;
+        text-transform: uppercase;
+        color: var(--colorText);  
+        margin-top: 5%; 
+        &.required::after {
+          content: "*";
+          color: var(--alert);
+          
+        }
+      }
+  
+      input {
+        height: 40px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        border: 2px solid var(--shadow2);
+        background: var(--sideNav);
+        outline-color: var(--color-header);
+        color: var(--deepblack);   
+  
+        &::placeholder {
+          color: #b6b6b6;
+        }
+      }
+    }
+  
+    .error-container {
+      margin-top: 4px;
+      height: 15px;
+    }
+  
+    &.ng-untouched.ng-invalid .error-container app-error {
+      display: none;
+      
+    }
+  
+    &.ng-touched.ng-invalid input {
+      border: 2px solid var(--alert);
+      background: var(--color-header);
+      color: var(--alert); 
+    }
+  
+    
+    
+  }

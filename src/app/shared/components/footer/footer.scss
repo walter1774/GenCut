@@ -1,0 +1,25 @@
+mat-toolbar {
+  background-color: var(--header); /* couleur principale du thème */
+  color: var(--colorText);
+  position: sticky;
+    // z-index: 1000;
+  box-shadow: var(--shadow1) 0px 2px 40px 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  min-width: 57vh;
+
+}
+
+.example-icon{
+  margin-right: 2%;
+  border-radius: 10px;
+  background-color: var(--element);
+  color: var(--colorText);
+}
+
+@media screen and (max-width: 500px) {
+    mat-toolbar {
+min-width: 46vh;
+}
+}

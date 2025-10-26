@@ -1,0 +1,51 @@
+
+html, body {
+  min-height: 57vh;
+  margin: 0;
+  padding: 0; 
+}
+
+mat-toolbar {
+  padding: 2%;
+  background-color: var(--header); 
+  color: var(--colorText);
+  position: sticky;
+  z-index: 1000;
+  box-shadow: var(--shadow1) 0px 2px 40px 2px;
+text-align: center;
+min-width: 57vh;
+}
+
+.contentImage{
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0,0,0,0.4)),
+              url('/images/iconeGC.png') no-repeat center center / cover;
+}
+
+.example-icon{
+  margin-right: 2%;
+  border-radius: 10px;
+  background-color: var(--element);
+  color: var(--colorText);
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+app-footer {
+  flex-shrink: 0;
+}
+
+.title{
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 500px) {
+    mat-toolbar {
+min-width: 46vh;
+}
+}

@@ -1,0 +1,73 @@
+/* --- Variables de base (ajustées) --- */
+:host {
+  /* Gardons la couleur de fond pour un look cohérent */
+  --neumorphic-background: #e0e0e0; 
+  /* Vous avez utilisé #747474 et #ffffff dans vos ombres internes */
+  --dark-shadow: #a8a9ad; /* Pour les ombres externes */
+  --light-shadow: #ffffff;
+  --checkbox-size: 44px; /* Augmentons la taille pour bien voir le rayon de 44px */
+  display: block;
+}
+
+/* --- Le Conteneur --- */
+.neumorphic-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* --- La Checkbox Réelle (Masquée) --- */
+.neumorphic-container input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+/* --- 1. L'Élément Visuel (NON COCHÉ - Relief saillant) --- */
+.checkbox-visual {
+  height: var(--checkbox-size);
+  width: var(--checkbox-size);
+  
+  /* Utilisation de votre border-radius pour un look de pilule/cercle si taille = rayon*2 */
+  border-radius: 10px; 
+  margin-right: 10px;
+  background: var(--primaryElement1);
+  transition: all 0.2s ease-in-out;
+
+  /* Style par défaut: Le carré est 'poussé' (léger relief) */
+  box-shadow: 
+    inset -5px -5px 10px var(--element),
+             5px 5px 10px var(--shadow2);
+}
+
+
+/* --- 2. L'État "COCHÉ" (Relief enfoncé avec box-shadow: inset) --- */
+.neumorphic-container input:checked ~ .checkbox-visual {
+  /* Le carré est 'enfoncé' dans la surface grâce à VOS styles inset */
+  
+  /* 🎯 VOS STYLES INSET APPLIQUÉS ICI 🎯 */
+  box-shadow: 
+    inset -5px -5px 10px var(--shadow2),
+             5px 5px 10px var(--gray);
+
+  background: var(--sideNav); /* Maintenons la couleur pour l'effet */
+  position: relative;
+}
+
+/* Ajout d'un point ou d'une icône pour confirmer l'état "coché" */
+.neumorphic-container input:checked ~ .checkbox-visual::after {
+  content: '✓'; 
+  color: var(--shadow1); /* Vert pour le 'check' */
+  font-size: calc(var(--checkbox-size) / 2); /* Taille adaptée à la taille de la case */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Style du texte du label */
+.label-text {
+  color: #333;
+}

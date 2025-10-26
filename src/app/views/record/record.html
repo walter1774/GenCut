@@ -1,0 +1,115 @@
+        <div class="p-6 bg-white rounded-xl shadow-2xl font-['Inter'] min-h-screen">
+      
+      <!-- Vue Détaillée du Résultat Sélectionné -->
+      @if (selectedResult; as res) {
+                        <app-button texte="Retour à l'historique" background="green" (buttonClicked)="goBack()"></app-button>
+
+        <h2 >
+            Détails de l'Optimisation Enregistrée
+        </h2>
+
+        <div class="center-card">
+        <app-card class="choice">
+        
+        <div class="space-y-4 p-4 border rounded-lg bg-gray-50 shadow-md">
+            <h2 class="text-xl font-semibold">Palette: {{ res.longueurPalette }} mm</h2>
+            <h2 class="text-lg">Perte totale: {{ res.perteTotale | number:'1.2-2' }} mm</h2>
+            <h2 class="text-lg">Nombre total de planches: {{ calculerNombreTotalPlanches(res) }}</h2>
+            <h2 class="text-lg font-bold" [ngClass]="getPerteClass(res.pourcentage)">
+                Pourcentage de perte: {{ res.pourcentage | number:'1.2-2' }}%
+            </h2>
+        </div>
+
+        <h2 class="text-2xl font-semibold text-gray-700 mt-8 mb-4">Détail des Séquences de Coupe</h2>
+        
+        <div class="space-y-6">
+            @for (g of res.groupes; track g; let i = $index) {
+            <div class="labelCard" [ngClass]="{'motif-checked': g.checked}">
+                <div class="border p-4 rounded-lg shadow-sm bg-white">
+                    <h3 class="text-xl font-medium text-gray-800 mb-2">Séquence {{ i + 1 }}:</h3>
+                    <ul class="list-disc ml-6 space-y-1 text-gray-600">
+                        <li>Nombre de planches: {{ g.count }}</li>
+                        <li>Motif: {{ formatMotif(g.motif, ' + ') }}</li>
+                        <li>Purge recommandée: {{ calculerPurgeRecommandee(res, g.motif) }} mm</li>
+                        <li>Perte par planche (pour cette palette): {{ calculerPerteParPlanche(res, g.motif) | number:'1.2-2' }} mm</li>
+                    </ul>
+                </div>
+                </div>
+            }
+        </div>
+        </app-card>
+        </div>
+      } 
+      
+      <!-- Vue Résumé (Tableau) -->
+      @else {
+        <h2 >
+          Historique des Optimisations Enregistrées
+          </h2>
+        
+
+        <!-- État vide -->
+        @if (!dataSource.length) {
+          <div class="text-center py-12 bg-gray-100 rounded-lg border-dashed border-2 border-gray-300">
+            <mat-icon class="text-gray-500" style="font-size: 48px; width: 48px; height: 48px;">info</mat-icon>
+            <p class="mt-4 text-gray-600 text-lg">Aucun résultat d'optimisation enregistré pour le moment.</p>
+            <p class="text-sm text-gray-500">Lancez un calcul et cliquez sur "Enregistrer les Résultats" pour commencer l'historique.</p>
+          </div>
+        }
+
+        <!-- Tableau des résultats -->
+        @if (dataSource.length) {
+          <div class="mat-elevation-z8 overflow-x-auto">
+            <table mat-table [dataSource]="dataSource" class="w-full min-w-[700px]">
+
+              <!-- Colonne Date -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef class="header-date"> Date </th>
+                <td mat-cell *matCellDef="let element" class="element_date"> {{element.timestamp | date:'dd/MM/yyyy'}} </td>
+              </ng-container>
+
+              <!-- Colonne Palette -->
+              <ng-container matColumnDef="palette">
+                <th mat-header-cell *matHeaderCellDef> Longueur Palette (mm) </th>
+                <td mat-cell *matCellDef="let element"> {{element.longueurPalette}} </td>
+              </ng-container>
+
+              <!-- Colonne Perte Totale -->
+              <ng-container matColumnDef="perteTotale">
+                <th mat-header-cell *matHeaderCellDef> Perte Totale (mm) </th>
+                <td mat-cell *matCellDef="let element"> {{element.perteTotale | number:'1.2-2'}} </td>
+              </ng-container>
+
+              <!-- Colonne % Perte -->
+              <ng-container matColumnDef="pourcentage">
+                <th mat-header-cell *matHeaderCellDef> % Perte </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <span [ngClass]="getPerteClass(element.pourcentage)">
+                    {{element.pourcentage | number:'1.2-2'}}%
+                  </span> 
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="selection">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Choix </th>
+                    <td mat-cell *matCellDef="let element" class="text-center"> 
+                        @if (isResultSelected(element)) {
+                            <span class="text-xl">⭐</span>
+                        }
+                    </td>
+                </ng-container>
+              
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <!-- Ajout du clic pour voir le détail -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row)" class="cursor-pointer hover:bg-gray-100 transition duration-150"></tr>
+            </table>
+            <h3>Cliquez sur une ligne pour voir le détail des séquences.</h3>
+          </div>
+          <div class="info">
+            <app-button texte="Vider l'historique" background="green" (buttonClicked)="confirmClearHistory()" [disabled]="!dataSource.length"></app-button>
+          </div>
+
+        }
+      }
+    </div>
+

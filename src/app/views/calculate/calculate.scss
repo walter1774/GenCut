@@ -1,0 +1,182 @@
+.content{
+    margin-top: 2%;
+    //  margin-right: 10%;
+    //  margin-left: 25%;
+     width: 100%;
+     display: grid;
+     place-items: center;
+}
+
+/* Style pour aligner la ligne d'inputs et le bouton */
+.morceau-inner-container {
+    // display: flex; 
+    // align-items: center; 
+    gap: 20px; 
+    margin-bottom: 20px; 
+    button {
+        flex-shrink: 0; /* Empêche le bouton de rétrécir */
+    }
+}
+
+.morceau-row{
+    border: 2px solid black;
+    padding: 2%;
+    margin-bottom: 2%;
+    border-radius: 20px;
+}
+
+.form-actions{
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-bottom: 2%;
+    display: grid;
+    place-items: center;
+}
+
+/* Vous pouvez ajuster le positionnement du bouton si nécessaire */
+.delete-button {
+    /* Ajout d'une marge pour l'aligner avec le texte/input si align-items: flex-end; ne suffit pas */
+    margin-bottom: 4px; 
+}
+
+/* Ajustement pour que les inputs dans la ligne prennent l'espace nécessaire */
+app-input-number {
+    flex-grow: 1; /* Permet à chaque input de s'étirer (si sa largeur interne n'est pas bloquée) */
+}
+
+.example-icon{
+  background-color: var(--alert);
+  color: black;
+  margin-top: 2%;
+}
+
+button{
+    width: auto;
+    height: auto;
+    text-transform: uppercase;
+    display: block;       /* important pour margin auto */
+    margin: 0 auto;       /* centre horizontalement */
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 5%;
+     padding: 10px;
+     background-color: var(--success);
+    color: black;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -5px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -8px 30px 0px inset,
+        rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  }
+
+/* ------------------------------------- */
+/* 1. État DÉSACTIVÉ (Grisé)             */
+/* ------------------------------------- */
+
+/* Style appliqué lorsque formUser.invalid est vrai (avant le clic) */
+.button-disabled {
+    cursor: not-allowed;
+    background-color: var(--color-gray-light, #cccccc); /* Couleur grisée */
+    color: var(--color-gray-dark, #555555);
+    opacity: 0.6;
+}
+
+
+/* ------------------------------------- */
+/* 2. État VALIDE (Vert)                 */
+/* ------------------------------------- */
+
+/* Style appliqué lorsque formUser.valid est vrai */
+.button-green {
+    cursor: pointer;
+}
+
+/* ------------------------------------- */
+/* 3. État INVALIDE après CLIC (Rouge)   */
+/* ------------------------------------- */
+
+/* Ce style ne s'applique que si l'on clique et que le formulaire est invalide. 
+   On peut utiliser une classe temporaire ou se fier à la validation après l'appel à onSubmit(). 
+   Puisque l'on ouvre un dialogue, une couleur de bordure rouge temporaire sur les inputs est plus efficace 
+   que de mettre le bouton en rouge.
+*/
+.button-submit-error {
+    // Si vous voulez vraiment le bouton en rouge après un clic invalide
+    background-color: var(--alert, #e74c3c); /* Couleur rouge */
+    animation: pulse-red 0.5s ease-in-out;
+}
+
+@keyframes pulse-red {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.best-choice-title{
+    color: var(--success);
+    align-items: center;
+    font-size: xx-large;
+}
+
+h2{
+    text-align: center;
+}
+.labelCard{
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-bottom: 2%;
+    padding: 2%;
+    display: grid;
+    place-items: center;
+    width: 90%;
+    margin-left: -5%;
+    margin-bottom: 5%;
+}
+
+
+label{
+    font-size: larger;
+    font-weight: 800;
+}
+li{
+    list-style-type: none;
+}
+
+.motif-checked {
+    color: var(--colorTextLink); /* Gris doux */
+    opacity: 0.8;
+    border: 1px solid var(--colorTextLink); 
+}
+
+.perte-faible{
+    color: var(--success);
+}
+
+.perte-moyenne{
+    color: var(--warning);
+}
+
+.perte-elevee{
+    color: var(--alert);
+}
+
+    .center-card{
+        display: grid;
+        place-items: center;
+    }
+
+
+
+@media screen and (max-width: 500px) {
+    .content{
+    // margin-left: 2%;
+    display: grid;
+    place-items: center;
+    }
+
+        .center-card{
+        padding: 5%;
+        // margin-right: -5%;
+        // margin-left: -5%;
+        width: 90%;
+    }
+
+}

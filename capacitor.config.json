@@ -1,0 +1,10 @@
+{
+  "appId": "com.terracut.optimizer", 
+  "appName": "GenCut",
+  "webDir": "dist/GenCut2",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "web": {
+    "allowJunk": true
+  }
+}

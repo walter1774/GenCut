@@ -1,0 +1,120 @@
+    .content{
+    margin-top: 2%;
+    //  margin-right: 10%;
+    //  margin-left: 25%;
+     width: 100%;
+     display: grid;
+     place-items: center;
+}
+    h2{
+        text-align: center;
+    }
+
+    h3{
+        text-align: center;
+    }
+
+    .info{
+        display: grid;
+        place-items: center;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .header-date {
+      width: 150px; /* Fixer la largeur de la colonne date */
+    }
+    .mat-elevation-z8 {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    }
+    
+    /* Couleurs des pourcentages de perte - doivent correspondre à calculate.ts */
+    .perte-faible {
+      color: #10b981; /* Vert */
+      font-weight: bold;
+    }
+
+    .perte-moyenne {
+      color: #f97316; /* Orange */
+      font-weight: bold;
+    }
+
+    .perte-elevee {
+      color: #ef4444; /* Rouge */
+      font-weight: bold;
+    }
+
+    .center-card{
+        display: grid;
+        place-items: center;
+    }
+
+    .labelCard{
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-bottom: 2%;
+    padding: 2%;
+    display: grid;
+    place-items: center;
+    width: 90%;
+    margin-left: 2%;
+    margin-bottom: 5%;
+}
+
+.motif-checked {
+        color: var(--colorTextLink); /* Gris doux */
+        opacity: 0.8;
+        border: 1px solid var(--colorTextLink); 
+    }
+    
+    .mat-column-date {
+        /* Longueur Palette */
+        flex: 0 0 20px;
+        min-width: 20px;
+        // font-size: 0.55rem;
+    }
+    .mat-column-palette {
+        /* Longueur Palette */
+        flex: 0 0 30px;
+        min-width: 30px;
+        font-size: smaller
+    }
+    .mat-column-perteTotale {
+        /* Perte Totale (mm) */
+        flex: 0 0 30px;
+        min-width: 30px;
+        font-size: smaller
+    }
+    .mat-column-pourcentage {
+        /* % Perte */
+        flex: 0 0 30px;
+        min-width: 30px;
+        font-size: smaller
+    }
+    .mat-column-selection {
+        /* Choix (étoile) - largeur minimale */
+        flex: 0 0 30px; 
+        min-width: 30px;
+        text-align: center;
+        font-size: smaller
+    }
+    
+    /* S'assurer que le contenu des cellules peut passer à la ligne si nécessaire */
+    .mat-header-cell, .mat-cell {
+        padding: 8px 12px;
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    @media screen and (max-width: 500px) {
+    .center-card{
+        padding: 5%;
+        margin-right: -15%;
+        width: 90%;
+    }
+
+    .mat-column-date {
+        font-size: 0.8rem;
+    }
+
+}

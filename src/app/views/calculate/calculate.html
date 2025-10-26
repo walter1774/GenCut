@@ -1,0 +1,169 @@
+<div class="content">
+    <app-card [title]="titleCard">
+        <h3>longueurs et quantités des planches</h3>
+
+        <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+
+            <div formArrayName="morceaux">
+
+                <div class="morceau-row" *ngFor="let morceauGroup of morceaux.controls; let i = index">
+
+                    <div [formGroupName]="i" class="morceau-inner-container">
+
+                        <app-input-number formControlName="longueur" label="Longueur (mm)" id="longueur-{{ i }}"
+                            [required]="true" placeholder="Longueur (mm)">
+                            <app-error
+                                *ngIf="morceaux.at(i).get('longueur')?.errors?.['required'] && morceaux.at(i).get('longueur')?.touched">
+                                Veuillez entrer une longueur.
+                            </app-error>
+                            <app-error
+                                *ngIf="morceaux.at(i).get('longueur')?.errors?.['pattern'] && morceaux.at(i).get('longueur')?.touched">
+                                La longueur doit être un nombre de 2 à 4 chiffres.
+                            </app-error>
+                        </app-input-number>
+<app-check-box [label]="'J\'accepte les termes et conditions'"
+  [(checked)]="isAccepted"
+  (checkedChange)="onCheckboxChange($event)"></app-check-box>
+  <p>État actuel: {{ isAccepted ? 'Accepté' : 'Non accepté' }}</p>
+
+
+
+
+
+
+
+
+                        <app-input-number formControlName="quantite" label="Quantité" id="quantite-{{ i }}"
+                            [required]="true" placeholder="Quantité">
+                            <app-error
+                                *ngIf="morceaux.at(i).get('quantite')?.errors?.['required'] && morceaux.at(i).get('quantite')?.touched">
+                                Veuillez entrer une quantité.
+                            </app-error>
+                            <app-error
+                                *ngIf="morceaux.at(i).get('quantite')?.errors?.['pattern'] && morceaux.at(i).get('quantite')?.touched">
+                                La quantité doit être un nombre de 1 à 4 chiffres.
+                            </app-error>
+                        </app-input-number>
+
+                    </div>
+                    <div>
+                        <button matIconButton class="example-icon" (click)="removeMorceau(i)" type="button">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <app-button (buttonClicked)="addMorceau()" [texte]="buttonText" [background]="'green'"></app-button>
+
+
+            <h3>longueurs des palettes</h3>
+            <div formArrayName="palettes">
+
+                <div class="morceau-row" *ngFor="let paletteGroup of palettes.controls; let i = index">
+
+                    <div [formGroupName]="i" class="morceau-inner-container">
+
+                        <app-input-number formControlName="longueur" label="Longueur palette (mm)" id="palette-{{ i }}"
+                            [required]="true" placeholder="Longueur palette (mm)">
+                            <app-error
+                                *ngIf="palettes.at(i).get('longueur')?.errors?.['required'] && palettes.at(i).get('longueur')?.touched">
+                                Veuillez entrer une longueur de palette.
+                            </app-error>
+                            <app-error
+                                *ngIf="palettes.at(i).get('longueur')?.errors?.['pattern'] && palettes.at(i).get('longueur')?.touched">
+                                La longueur doit être un nombre de 1 à 4 chiffres.
+                            </app-error>
+                        </app-input-number>
+
+                        <button matIconButton class="example-icon" (click)="removePalette(i)" type="button">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <app-button (buttonClicked)="addPalette()" [texte]="buttonTextPalette" [background]="'green'"></app-button>
+
+            <div class="morceau-row">
+                <mat-button-toggle-group [formControl]="purgeControl" name="purgeOption"
+                    aria-label="Choix de la valeur de purge">
+                    <!-- Les valeurs restent 'auto' et '40' -->
+                    <mat-button-toggle value="auto">Automatique</mat-button-toggle>
+                    <mat-button-toggle value="40">40 mm</mat-button-toggle>
+                </mat-button-toggle-group>
+
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="app-button" [disabled]="formUser.invalid" [ngClass]="{
+                'button-disabled': formUser.invalid,
+                'button': formUser.valid
+            }">
+                    Calculer
+                </button>
+
+                <app-button texte="Réinitialiser" background="red" (buttonClicked)="openDialog()"></app-button>
+                <app-button texte="Enregistrer les Résultats" background="green" [disabled]="resultats.length === 0"
+                    (buttonClicked)="openSaveDialog()">
+                </app-button>
+            </div>
+        </form>
+
+    </app-card>
+
+    <!--****************** résultat ***************************-->
+
+    <div *ngIf="resultats.length > 0">
+        <div *ngFor="let res of resultats">
+            <div class="center-card">
+                <app-card class="choice">
+
+                    <h2 *ngIf="isMeilleurResultat(res.perteTotale)" class="best-choice-title">
+                        ⭐ Meilleur Choix
+                    </h2>
+
+                    <div class="space-y-4 p-4 border rounded-lg bg-gray-50 shadow-md">
+                        <h2 class="text-xl font-semibold">Palette: {{ res.longueurPalette }} mm</h2>
+                        <h2 class="text-lg">Perte totale: {{ res.perteTotale }} mm</h2>
+                        <h2 class="text-lg">Nombre total de planches: {{ totalPalettes(res.groupes) }}</h2>
+                        <h2 class="text-lg font-bold" [ngClass]="{
+            'perte-faible': res.pourcentage <= 5,
+            'perte-moyenne': res.pourcentage > 5 && res.pourcentage <= 10,
+            'perte-elevee': res.pourcentage > 10
+          }">
+                            Pourcentage de perte: {{ res.pourcentage}}%
+                        </h2>
+                    </div>
+
+                    <ul>
+                        <div *ngFor="let g of res.groupes; let i = index">
+                            <div class="labelCard" [ngClass]="{'motif-checked': g.checked}">
+                                <div class="sequence">
+                                    <label [ngClass]="{'motif-checked': g.checked}">Séquence {{i+1}}: </label>
+                                    <mat-checkbox class="example-margin" [checked]="g.checked"
+                                        (change)="g.checked = $event.checked; toggleMotifSelection(g)"></mat-checkbox>
+                                </div>
+                                <li> Nombre de planches : {{ g.count }}</li>
+                                <li> {{ formaterMotif(g.motif) }}</li>
+                                @if(toggleBoolean){
+                                <!-- Mode 40mm sélectionné -->
+                                <li> purge recommandée : 40 mm</li>
+                                }@else{
+                                <!-- Mode Automatique sélectionné -->
+                                <li> purge recommandées : {{ (res.longueurPalette - getLongueurMotif(g.motif)) / 2 }} mm
+                                </li>
+
+                                }
+                                <li> perte par planche : {{ res.longueurPalette - getLongueurMotif(g.motif) }}</li>
+                            </div>
+                        </div>
+                    </ul>
+
+
+                </app-card>
+            </div>
+        </div>
+    </div>
+</div>
