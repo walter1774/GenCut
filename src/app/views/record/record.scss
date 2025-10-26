@@ -10,7 +10,6 @@
   backdrop-filter: blur(3px); // Effet de flou optionnel
 }
 
-
     .content{
     margin-top: 2%;
     //  margin-right: 10%;
@@ -21,12 +20,20 @@
 }
     h2{
         text-align: center;
+        color: black;
+    }
+
+    .opti{
+        color: var(--sideNav);
     }
 
     h3{
         text-align: center;
     }
 
+    .detail{
+        color: white;
+    }
     .info{
         display: grid;
         place-items: center;

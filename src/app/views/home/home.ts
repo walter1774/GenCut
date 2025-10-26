@@ -59,6 +59,8 @@ export class Home {
 //? ************* pour déployer l'appli sans la supprimer sur le téléphone pour faire des mise à jour ***************
 //? 🔜 1. Construire l'application Angular pour la production Ceci génère les fichiers optimisés dans le dossier 'dist'
 //? npm run build 
+//? 🔜 2.Correction de Chemin : Déplace les assets du sous-dossier browser au dossier GenCut2 (nécessaire en raison du bogue Capacitor).
+//? Move-Item -Path .\dist\GenCut2\browser\* -Destination .\dist\GenCut2\ 
 //? 🔜 2. Synchroniser les nouveaux fichiers web avec le projet Capacitor Android
 //? npx cap sync android	
 //? 🔜 3. Exécuter l'application sur votre appareil Android

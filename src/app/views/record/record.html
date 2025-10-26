@@ -8,7 +8,7 @@
 <app-button texte="Enregistrer les Résultats" background="green" 
                     (buttonClicked)="openSaveDialog()">
                 </app-button>
-        <h2 >
+        <h2 class="opti">
             Détails de l'Optimisation Enregistrée
         </h2>
 
@@ -109,7 +109,7 @@
               <!-- Ajout du clic pour voir le détail -->
               <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row)" class="cursor-pointer hover:bg-gray-100 transition duration-150"></tr>
             </table>
-            <h3>Cliquez sur une ligne pour voir le détail des séquences.</h3>
+            <h3 class="detail">Cliquez sur une ligne pour voir le détail des séquences.</h3>
           </div>
           <div class="info">
             <app-button texte="Vider l'historique" background="green" (buttonClicked)="confirmClearHistory()" [disabled]="!dataSource.length"></app-button>
